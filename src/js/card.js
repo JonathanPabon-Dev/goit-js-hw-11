@@ -18,11 +18,16 @@ export default class Card {
     card.style.height = 'fit-content';
     col.appendChild(card);
 
+    const imageLink = document.createElement('a');
+    imageLink.href = this.imageSource;
+    card.appendChild(imageLink);
+
     const image = document.createElement('img');
     image.src = this.imageSource;
+    image.setAttribute('data-source', this.imageSource);
     image.loading = 'lazy';
     image.classList.add('card-img-top');
-    card.appendChild(image);
+    imageLink.appendChild(image);
 
     const info = document.createElement('div');
     info.classList.add('card-body', 'd-flex', 'justify-content-around');
