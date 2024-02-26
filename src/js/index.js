@@ -10,6 +10,7 @@ gallery.style.maxWidth = '1440px';
 form.addEventListener('submit', async e => {
   e.preventDefault();
   let pageNumber = 1;
+
   let q = e.target.elements['searchForm'].value;
   if (q.trim() === '') {
     return;
@@ -18,6 +19,16 @@ form.addEventListener('submit', async e => {
   data.forEach(image => {
     const card = new Card(image);
     gallery.appendChild(card.newCard());
+  });
+
+  gallery.addEventListener('click', openModal);
+
+  function openModal(e) {
+    e.preventDefault();
+  }
+
+  const lightbox = new SimpleLightbox('.gallery a', {
+    captionsDelay: '250ms',
   });
 
   window.onscroll = async function () {
@@ -32,16 +43,7 @@ form.addEventListener('submit', async e => {
         const card = new Card(image);
         gallery.appendChild(card.newCard());
       });
+      lightbox.refresh();
     }
   };
-
-  gallery.addEventListener('click', openModal);
-
-  function openModal(e) {
-    e.preventDefault();
-  }
-
-  new SimpleLightbox('.gallery a', {
-    captionsDelay: '250ms',
-  });
 });
